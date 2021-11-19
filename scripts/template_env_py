@@ -1,0 +1,19 @@
+from pyrfuniverse.envs import RFUniverseBaseEnv
+
+
+class $EnvName$Env(RFUniverseBaseEnv):
+    def __init__(self, executable_file=None):
+        super().__init__(
+            executable_file=executable_file,
+            camera_channel_id=None,
+            rigidbody_channel_id=None,
+            articulation_channel_id=None,
+            game_object_channel_id=None,
+        )
+
+    def step(self):
+        # In each time step, this function must be called to make sure Unity works well.
+        self._step()
+
+    def reset(self):
+        self.env.reset()

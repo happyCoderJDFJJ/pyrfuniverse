@@ -1,0 +1,1 @@
+# Wrap RFUniverse environment into OpenAI-GYM style

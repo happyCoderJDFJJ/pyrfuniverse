@@ -1,0 +1,54 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using System.Reflection;
+using System;
+
+using UnityEngine;
+using Robotflow.RFUniverse;
+using Robotflow.RFUniverse.Sensors;
+using Robotflow.RFUniverse.Actuators;
+using Robotflow.RFUniverse.SideChannels;
+
+using RFUniverse.Manager;
+using RFUniverse.Controllers;
+
+public class $AgentName$Agent : Agent
+{
+    private List<BaseManager> managers;
+    private EnvironmentParameters environmentParameters;
+
+    // This function is called when this environment is initialized.
+    void Start()
+    {
+        // Resolution
+        Screen.SetResolution($Width$, $Height$, false);
+        // Time interval between two time steps.
+        Time.fixedDeltaTime = $FixedDeltaTime$f;
+
+        managers = new List<BaseManager>();
+        // Declare managers
+$$DECLARE MANAGERS$$
+        environmentParameters = Academy.Instance.EnvironmentParameters;
+    }
+
+    // This function is called when this environment is reset. Thus, this function is not necessary for implementation.
+    public override void OnEpisodeBegin()
+    {
+
+    }
+
+    // What this environment do in each time step.
+    void FixedUpdate()
+    {
+        foreach (BaseManager manager in managers)
+        {
+            if (manager.IsUpdated())
+            {
+                manager.ParseExecuteAction();
+                manager.Refresh();
+            }
+            manager.CollectData();
+        }
+    }
+}
